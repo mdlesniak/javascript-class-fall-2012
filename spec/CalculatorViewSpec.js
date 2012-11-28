@@ -16,7 +16,7 @@ describe('Calculator view', function () {
         container.append($("<button id='btnperiod' class='verbatim'>.</button>"));
         container.append($("<button id='btnclear' class='clear'>C</button>"));
 
-        calculator = jasmine.createSpyObj('description goes here', ['add', 'subtract']);
+        calculator = jasmine.createSpyObj('description goes here', ['add', 'subtract', 'lastResult']);
 
         var calculatorView = new CalculatorView(calculator);
         calculatorView.init('.calculator');
@@ -77,8 +77,8 @@ describe('Calculator view', function () {
         expect(displayText).toBe('0.');
     });
 
-    it('can add one and two', function () {
-        calculator.add.andReturn("3");
+    it('displays the last result from the calculator', function () {
+        calculator.lastResult.andReturn("3");
         container.find('#btn1').click();
         container.find('#btnplus').click();
         container.find('#btn2').click();
@@ -95,8 +95,6 @@ describe('Calculator view', function () {
         container.find('#btn0').click();
         container.find('#btnequal').click();
 
-        var displayText = container.find('.display').val();
-        expect(displayText).toBe('1');
         expect(calculator.add).toHaveBeenCalledWith(1, 0);
     });
 
@@ -109,13 +107,11 @@ describe('Calculator view', function () {
     });
 
     it('can subtract three and two', function () {
-        calculator.subtract.andReturn("1");
         container.find('#btn3').click();
         container.find('#btnminus').click();
         container.find('#btn2').click();
         container.find('#btnequal').click();
 
-        var displayText = container.find('.display').val();
-        expect(displayText).toBe('1');
+        expect(calculator.subtract).toHaveBeenCalledWith(3, 2);
     });
 });
