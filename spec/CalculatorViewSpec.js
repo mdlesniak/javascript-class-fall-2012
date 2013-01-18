@@ -114,4 +114,16 @@ describe('Calculator view', function () {
 
         expect(calculator.subtract).toHaveBeenCalledWith(3, 2);
     });
+    
+    it('resets storage to 0 for multiple presses of equal', function () {
+        calculator.add.andReturn("3");
+        container.find('#btn1').click();
+        container.find('#btnplus').click();
+        container.find('#btn2').click();
+        container.find('#btnequal').click();
+        expect(calculator.add).toHaveBeenCalledWith(1, 2);
+        
+        container.find('#btnequal').click();
+        expect(calculator.add).toHaveBeenCalledWith(1, 2);
+    });
 });

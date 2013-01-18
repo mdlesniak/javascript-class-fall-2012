@@ -30,6 +30,7 @@ CalculatorView.prototype.init = function (c) {
         this.calculator[this.operator](Number(this.storage), Number(display.val()));
         var newValue = this.calculator.lastResult();
         display.val(newValue);
+        this.storage = '0';
     }, this));
 
     wrapper.find('button.operator').click(jQuery.proxy(function (ev) {
